@@ -13,6 +13,8 @@
 		13F5DFBB28B79DC900DE87E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFA928B79DC700DE87E7 /* ContentView.swift */; };
 		13F5DFBC28B79DC900DE87E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13F5DFAA28B79DC900DE87E7 /* Assets.xcassets */; };
 		13F5DFBD28B79DC900DE87E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13F5DFAA28B79DC900DE87E7 /* Assets.xcassets */; };
+		13F5DFC928B7AD9100DE87E7 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFC828B7AD9100DE87E7 /* Modifiers.swift */; };
+		13F5DFCB28B7B16300DE87E7 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFCA28B7B16300DE87E7 /* MainMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		13F5DFAF28B79DC900DE87E7 /* Blackjack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackjack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13F5DFB528B79DC900DE87E7 /* Blackjack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackjack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13F5DFB728B79DC900DE87E7 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		13F5DFC828B7AD9100DE87E7 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		13F5DFCA28B7B16300DE87E7 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				13F5DFA828B79DC700DE87E7 /* BlackjackApp.swift */,
+				13F5DFC728B7AD7800DE87E7 /* Helpers */,
 				13F5DFC628B79E4C00DE87E7 /* View */,
 				13F5DFAA28B79DC900DE87E7 /* Assets.xcassets */,
 			);
@@ -82,8 +87,17 @@
 			isa = PBXGroup;
 			children = (
 				13F5DFA928B79DC700DE87E7 /* ContentView.swift */,
+				13F5DFCA28B7B16300DE87E7 /* MainMenuView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		13F5DFC728B7AD7800DE87E7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				13F5DFC828B7AD9100DE87E7 /* Modifiers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +200,8 @@
 			files = (
 				13F5DFBA28B79DC900DE87E7 /* ContentView.swift in Sources */,
 				13F5DFB828B79DC900DE87E7 /* BlackjackApp.swift in Sources */,
+				13F5DFCB28B7B16300DE87E7 /* MainMenuView.swift in Sources */,
+				13F5DFC928B7AD9100DE87E7 /* Modifiers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

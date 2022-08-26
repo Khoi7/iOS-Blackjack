@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		137BFF6528B8FD2700318493 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6428B8FD2700318493 /* GameView.swift */; };
+		137BFF6728B8FE1000318493 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6628B8FE1000318493 /* HowToPlayView.swift */; };
 		13F5DFB828B79DC900DE87E7 /* BlackjackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFA828B79DC700DE87E7 /* BlackjackApp.swift */; };
 		13F5DFB928B79DC900DE87E7 /* BlackjackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFA828B79DC700DE87E7 /* BlackjackApp.swift */; };
 		13F5DFBA28B79DC900DE87E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFA928B79DC700DE87E7 /* ContentView.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		137BFF6428B8FD2700318493 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		137BFF6628B8FE1000318493 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		13F5DFA828B79DC700DE87E7 /* BlackjackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackjackApp.swift; sourceTree = "<group>"; };
 		13F5DFA928B79DC700DE87E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		13F5DFAA28B79DC900DE87E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 			children = (
 				13F5DFA928B79DC700DE87E7 /* ContentView.swift */,
 				13F5DFCA28B7B16300DE87E7 /* MainMenuView.swift */,
+				137BFF6428B8FD2700318493 /* GameView.swift */,
+				137BFF6628B8FE1000318493 /* HowToPlayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,10 +204,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				137BFF6728B8FE1000318493 /* HowToPlayView.swift in Sources */,
 				13F5DFBA28B79DC900DE87E7 /* ContentView.swift in Sources */,
 				13F5DFB828B79DC900DE87E7 /* BlackjackApp.swift in Sources */,
 				13F5DFCB28B7B16300DE87E7 /* MainMenuView.swift in Sources */,
 				13F5DFC928B7AD9100DE87E7 /* Modifiers.swift in Sources */,
+				137BFF6528B8FD2700318493 /* GameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

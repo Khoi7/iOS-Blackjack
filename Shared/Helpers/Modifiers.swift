@@ -16,3 +16,19 @@ struct MenuChoiceText: ViewModifier {
             .shadow(color: .black, radius: 10, x: 5, y: 5)
     }
 }
+
+struct TutorialTitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.yellow)
+            .font(.system(size: 30, weight: .bold, design: .monospaced))
+    }
+}
+
+struct TutorialContent: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 18, design: .monospaced))
+            .padding(.bottom)
+    }
+}

@@ -4,6 +4,8 @@
 //
 //  Created by Khoi, Vu Duy on 26/08/2022.
 //
+// <a href="https://www.flaticon.com/free-icons/poker" title="poker icons">Poker icons created by Smashicons - Flaticon</a>
+// <a href="https://www.flaticon.com/free-icons/poker-cards" title="poker cards icons">Poker cards icons created by rizal2109 - Flaticon</a>
 
 import SwiftUI
 
@@ -52,6 +54,7 @@ struct GameView: View {
                     .foregroundColor(Color("Transparent Black"))
                     .overlay {
                         Text("\(coins)")
+                            .foregroundColor(.white)
                     }
             }
         }

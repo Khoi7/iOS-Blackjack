@@ -13,8 +13,9 @@ struct ChipView: View {
         Image(chipType)
             .resizable()
             .scaledToFit()
-            .frame(height: 75)
-            .padding(.trailing, 10)
+            .frame(height: 60)
+            .padding(.trailing, 5)
+            .padding(.leading, 5)
     }
 }
 

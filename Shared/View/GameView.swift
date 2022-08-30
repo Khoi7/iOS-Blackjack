@@ -14,6 +14,7 @@ struct GameView: View {
     @State var dealCard = true
     
     @State var coins = 0
+    @State var bet = 0
     
     var body: some View {
         ZStack {
@@ -33,6 +34,8 @@ struct GameView: View {
                 
                 Spacer()
                 
+                
+                
                 // MARK: Player hand
                 if (dealCard) {
                     ZStack {
@@ -42,18 +45,38 @@ struct GameView: View {
                             .offset(x: 25, y: 0)
                     }
                 }
+                HStack(spacing:17){
+                    RoundedButton(label: "Stand")
+                    ZStack {
+                        Circle()
+                            .stroke(lineWidth: 3)
+                            .foregroundColor(.yellow)
+                            .frame(width:150, height: 150)
+                            .background(Circle()
+                                .foregroundColor(Color("Transparent Black")))
+                        VStack {
+                            Text("Bet: $ \(bet)")
+                                .foregroundColor(.white)
+                            ChipView(chipType: "chip50")
+                        }
+                    }
+                    RoundedButton(label: "Hit")
+                }
                 HStack (alignment: .center) {
                     ChipView(chipType: "chip5")
                     ChipView(chipType: "chip10")
                     ChipView(chipType: "chip50")
                     ChipView(chipType: "chip100")
+                    ChipView(chipType: "chipMinus")
                 }
                 .padding(.top, 30)
+                
                 Capsule(style: .continuous)
                     .frame(width:200, height: 40, alignment: .center)
                     .foregroundColor(Color("Transparent Black"))
+                    .padding()
                     .overlay {
-                        Text("\(coins)")
+                        Text("$ \(coins)")
                             .foregroundColor(.white)
                     }
             }

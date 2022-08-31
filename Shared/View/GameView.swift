@@ -11,9 +11,10 @@ import SwiftUI
 
 struct GameView: View {
     @Binding var showGameView: Bool
-    @State var dealCard = true
+    @State var dealCard = false
+    @State var betChips = [String]()
     
-    @State var coins = 0
+    @State var coins = 500
     @State var bet = 0
     
     var body: some View {
@@ -34,8 +35,6 @@ struct GameView: View {
                 
                 Spacer()
                 
-                
-                
                 // MARK: Player hand
                 if (dealCard) {
                     ZStack {
@@ -44,30 +43,59 @@ struct GameView: View {
                         CardView(number: 13, suit: 0)
                             .offset(x: 25, y: 0)
                     }
+                } else {
+                    // MARK: Bet button
+                    Button {
+                        if bet != 0 {
+                            dealCard = true
+                        }
+                    } label: {
+                        RoundedButton(label: "Bet")
+                    }
                 }
+                
                 HStack(spacing:17){
-                    RoundedButton(label: "Stand")
+                    if (dealCard) {
+                        RoundedButton(label: "Stand")
+                    }
+                    
                     ZStack {
                         Circle()
                             .stroke(lineWidth: 3)
                             .foregroundColor(.yellow)
-                            .frame(width:150, height: 150)
+                            .frame(width:140, height: 150)
                             .background(Circle()
                                 .foregroundColor(Color("Transparent Black")))
                         VStack {
                             Text("Bet: $ \(bet)")
                                 .foregroundColor(.white)
-                            ChipView(chipType: "chip50")
+                            ZStack {
+                                ForEach(Array(zip(betChips.indices, betChips)), id:\.0) { index, chip in
+                                    createChipBet(chipType: chip, index: index)
+                                }
+                            }
+                        }
+                        .frame(height: 110, alignment: .top)
+                    }
+                    
+                    if (dealCard) {
+                        RoundedButton(label: "Hit")
+                    }
+                }
+                
+                // MARK: Bet chip choices
+                HStack (alignment: .center) {
+                    ForEach(["chip5", "chip10", "chip50", "chip100", "chipMinus"], id: \.self) { chip in
+                        Button {
+                            if chip != "chipMinus" {
+                                addBet(chip: chip)
+                            } else {
+                                minusBet()
+                            }
+                        } label: {
+                            ChipView(chipType: chip)
                         }
                     }
-                    RoundedButton(label: "Hit")
-                }
-                HStack (alignment: .center) {
-                    ChipView(chipType: "chip5")
-                    ChipView(chipType: "chip10")
-                    ChipView(chipType: "chip50")
-                    ChipView(chipType: "chip100")
-                    ChipView(chipType: "chipMinus")
                 }
                 .padding(.top, 30)
                 
@@ -81,18 +109,65 @@ struct GameView: View {
                     }
             }
         }
+        // MARK: Back button
         .overlay(alignment: .topLeading) {
             Button(){
                 showGameView = false
             } label: {
                 Image(systemName: "arrow.backward")
                     .resizable()
-                    .foregroundColor(.white)
-                    .scaledToFit()
-                    .frame(width: 30)
-                    .padding(.leading, 20)
-                    .padding(.top, 20)
+                    .modifier(BackButton())
             }
+        }
+    }
+
+    func getChipValue(chipType: String) -> Int {
+        let result = Int(chipType.components(separatedBy: CharacterSet.decimalDigits.inverted).joined())!
+        return result
+    }
+
+    func createChipBet(chipType: String, index: Int) -> some View {
+        let x, y: CGFloat
+        switch index % 6 {
+        case 1:
+            x = 0
+            y = 0
+        case 2:
+            x = 20
+            y = 0
+        case 3:
+            x = 20
+            y = 20
+        case 4:
+            x = 0
+            y = 20
+        case 5:
+            x = -20
+            y = 20
+        default:
+            x = -20
+            y = 0
+        }
+        let chip = ChipView(chipType: chipType)
+            .offset(x: x, y: y)
+        return chip
+    }
+
+    func addBet(chip: String) {
+        let chipValue = getChipValue(chipType: chip)
+        if (self.coins - chipValue >= 0) {
+            self.betChips.append(chip)
+            self.bet += chipValue
+            self.coins -= chipValue
+        }
+    }
+    
+    func minusBet() {
+        if (betChips.count > 0) {
+            let removed = betChips.removeLast()
+            let removedValue = getChipValue(chipType: removed)
+            self.bet -= removedValue
+            self.coins += removedValue
         }
     }
 }
@@ -100,5 +175,6 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(showGameView: .constant(true))
+        MainMenuView()
     }
 }

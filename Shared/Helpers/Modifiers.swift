@@ -32,3 +32,14 @@ struct TutorialContent: ViewModifier {
             .padding(.bottom)
     }
 }
+
+struct BackButton: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.white)
+            .scaledToFit()
+            .frame(width: 30)
+            .padding(.leading, 20)
+            .padding(.top, 20)
+    }
+}

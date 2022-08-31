@@ -14,9 +14,14 @@ struct GameView: View {
     @State var dealCard = false
     @State var betChips = [String]()
     
+    @State var playerCards = [[Int]]()
+    @State var dealerCards = [[Int]]()
+    
     @State var coins = 500
     @State var bet = 0
     
+    @State var deck = [[Int]]()
+   
     var body: some View {
         ZStack {
             RadialGradient(colors: [Color("Bright Table"), Color("Dark Table")], center: .center, startRadius: 0, endRadius: 400)
@@ -38,22 +43,24 @@ struct GameView: View {
                 // MARK: Player hand
                 if (dealCard) {
                     ZStack {
-                        CardView(number: 1, suit: 3)
+                        CardView(number: playerCards[0][0], suit: playerCards[0][1])
                             .offset(x: -25, y: 0)
-                        CardView(number: 13, suit: 0)
+                        CardView(number: playerCards[1][0], suit: playerCards[1][1])
                             .offset(x: 25, y: 0)
                     }
                 } else {
                     // MARK: Bet button
                     Button {
                         if bet != 0 {
+                            deck = initDeck()
+                            deal()
                             dealCard = true
                         }
                     } label: {
                         RoundedButton(label: "Bet")
                     }
                 }
-                
+                // MARK: Player actions
                 HStack(spacing:17){
                     if (dealCard) {
                         RoundedButton(label: "Stand")
@@ -65,7 +72,7 @@ struct GameView: View {
                             .foregroundColor(.yellow)
                             .frame(width:140, height: 150)
                             .background(Circle()
-                                .foregroundColor(Color("Transparent Black")))
+                            .foregroundColor(Color("Transparent Black")))
                         VStack {
                             Text("Bet: $ \(bet)")
                                 .foregroundColor(.white)
@@ -121,6 +128,7 @@ struct GameView: View {
         }
     }
 
+    //MARK: Functions
     func getChipValue(chipType: String) -> Int {
         let result = Int(chipType.components(separatedBy: CharacterSet.decimalDigits.inverted).joined())!
         return result
@@ -154,24 +162,52 @@ struct GameView: View {
     }
 
     func addBet(chip: String) {
-        let chipValue = getChipValue(chipType: chip)
-        if (self.coins - chipValue >= 0) {
-            self.betChips.append(chip)
-            self.bet += chipValue
-            self.coins -= chipValue
+        if dealCard == false {
+            let chipValue = getChipValue(chipType: chip)
+            if (self.coins - chipValue >= 0) {
+                self.betChips.append(chip)
+                self.bet += chipValue
+                self.coins -= chipValue
+            }
         }
     }
     
     func minusBet() {
-        if (betChips.count > 0) {
-            let removed = betChips.removeLast()
-            let removedValue = getChipValue(chipType: removed)
-            self.bet -= removedValue
-            self.coins += removedValue
+        if dealCard == false {
+            if (betChips.count > 0) {
+                let removed = betChips.removeLast()
+                let removedValue = getChipValue(chipType: removed)
+                self.bet -= removedValue
+                self.coins += removedValue
+            }
+        }
+    }
+    
+    func initDeck() -> [[Int]] {
+        var temp = [[Int]]()
+        for cardSuit in 0...3 {
+            for cardNum in 1...13 {
+                temp.append([cardNum, cardSuit])
+            }
+        }
+        return temp
+    }
+    
+    func deal() {
+        for i in 1...4 {
+            if let index = deck.indices.randomElement() {
+                deck.remove(at: index)
+                if i%2 == 1 {
+                    playerCards.append(deck[index])
+                } else {
+                    dealerCards.append(deck[index])
+                }
+            }
         }
     }
 }
 
+// MARK: Preview
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(showGameView: .constant(true))

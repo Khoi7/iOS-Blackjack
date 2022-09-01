@@ -22,7 +22,7 @@ struct HowToPlayView: View {
                     
                     Text("Card values".uppercased())
                         .modifier(TutorialTitle())
-                    Text("It is up to each individual player if an ace is worth 1 or 10 or 11. Face cards are 10 and any other card is its pip value.\n\nIf a player's first two cards are an ace and a \"ten-card\" (a picture card or 10), giving a count of 21 in two cards, this is \"blackjack\".\n\nIf a player's first two cards are both aces, this is a \"double aces\"\n\nIf a player get five cards of 21 or less in total, this is a \"magical five\"\n\nIf a player get mroe than 21 in total, this is a \"bust\"")
+                    Text("It is up to each individual player if an ace is worth 1 or 11. Face cards are 10 and any other card is its pip value.\n\nIf a player's first two cards are an ace and a \"ten-card\" (a picture card or 10), giving a count of 21 in two cards, this is \"blackjack\".\n\nIf a player's first two cards are both aces, this is a \"double aces\"\n\nIf a player get five cards of 21 or less in total, this is a \"magical five\"\n\nIf a player get mroe than 21 in total, this is a \"bust\"")
                         .modifier(TutorialContent())
                     
                     Text("Main game play".uppercased())
@@ -32,7 +32,7 @@ struct HowToPlayView: View {
                     
                     Text("Determine winner".uppercased())
                         .modifier(TutorialTitle())
-                    Text("Winner is determined based on this ranking (from strongest to weakest hand):\n1/Double aces\n2/Blackjack\n3/Magical five\n4/Compare total pip value\n5/Bust")
+                    Text("Winner is determined based on this ranking (from strongest to weakest hand):\n1/Double aces\n2/Blackjack\n3/Magical five (if both have magical fives, the one with less total points wins)\n4/Compare total pip value (the one with greater total points wins)\n5/Bust")
                         .modifier(TutorialContent())
                     }
                 .padding(.horizontal, 15)

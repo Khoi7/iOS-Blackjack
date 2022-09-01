@@ -16,6 +16,8 @@ struct GameView: View {
     
     @State var playerCards = [[Int]]()
     @State var dealerCards = [[Int]]()
+    @State var playerPoints = 0
+    @State var dealerPoints = 0
     
     @State var coins = 500
     @State var bet = 0
@@ -80,7 +82,9 @@ struct GameView: View {
                 HStack(spacing:17){
                     if (dealCard) {
                         Button {
-                            stand(hand: playerCards)
+                            if getHandValue(hand: playerCards) >= 16 {
+                                stand(hand: playerCards)
+                            }
                         } label: {
                             RoundedButton(label: "Stand")
                         }
@@ -107,7 +111,9 @@ struct GameView: View {
                     
                     if (dealCard) {
                         Button {
-                            hit(hand: &playerCards)
+                            if !revealed {
+                                hit(hand: &playerCards)
+                            }
                         } label: {
                             RoundedButton(label: "Hit")
                         }
@@ -244,21 +250,79 @@ struct GameView: View {
     }
     
     func stand(hand: [[Int]]) {
-        var sum: Int = 0
-        for card in hand {
-            sum += getCardValue(number: card[0])
-        }
-        if sum > 16 {
-            revealed = true
-        }
+        playerPoints = getHandValue(hand: playerCards)
+        revealed = true
     }
     
     func getCardValue(number: Int) -> Int {
         let value: Int
-        if number > 10 {
+        if number >= 10 {
             value = 10
         } else {
             value = number
+        }
+        return value
+    }
+    
+    func sumCardNormal(hand: [[Int]]) -> Int {
+        var sum: Int = 0
+        for card in hand {
+            sum += getCardValue(number: card[0])
+        }
+        return sum
+    }
+    
+    func sumCardWithAce(hand: [[Int]]) -> Int {
+        var sum: Int = 0
+        for card in hand {
+            if card[0] == 1 {
+                for value in [1,10,11] {
+                    if (sum + value > sum) && (sum + value <= 21) {
+                        sum += value
+                    }
+                }
+            } else {
+                sum += getCardValue(number: card[0])
+            }
+        }
+        return sum
+    }
+    
+    func sumCard(hand: [[Int]]) -> Int {
+        var ace = false
+        var sum: Int = 0
+        for card in hand  {
+            ace = card[0] == 1 ? true : false
+        }
+        if ace {
+            sum = sumCardWithAce(hand: hand)
+        } else {
+            sum = sumCardNormal(hand: hand)
+        }
+        return sum
+    }
+    
+    func getHandValue(hand: [[Int]]) -> Int {
+        var value = 0
+        var numbers = [Int]()
+        for card in hand {
+            numbers.append(getCardValue(number: card[0]))
+        }
+        if numbers.count == 2 {
+            if numbers.contains(1) && numbers.contains(10) {
+                value = 99
+            } else if numbers[0] == 1 && numbers[1] == 1 {
+                value = 100
+            } else {
+                value = sumCard(hand: hand)
+            }
+        } else {
+            let sum = sumCard(hand: hand)
+            if numbers.count == 5 {
+                value = sum <= 21 ? 98 : sum
+            } else {
+                value = sum
+            }
         }
         return value
     }

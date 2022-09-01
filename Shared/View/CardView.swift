@@ -27,7 +27,18 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(number: 0, suit: 0)
+        Group {
+            HStack {
+                CardView(number: 0, suit: 0)
+                    .padding(.leading,0)
+                CardView(number: 0, suit: 0)
+                    .padding(.leading, -90)
+                CardView(number: 0, suit: 0)
+                    .padding(.leading, -90)
+                CardView(number: 0, suit: 0)
+                    .padding(.leading, -90)
+            }
+        }
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
     }

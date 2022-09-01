@@ -21,6 +21,9 @@ struct GameView: View {
     @State var bet = 0
     
     @State var deck = [[Int]]()
+    
+    @State var decision: String = ""
+    @State var revealed = false
    
     var body: some View {
         ZStack {
@@ -30,11 +33,21 @@ struct GameView: View {
                 
                 // MARK: CPU hand
                 if (dealCard) {
-                    ZStack {
-                        CardView(number: 0, suit: 0)
-                            .offset(x: -25, y: 0)
-                        CardView(number: 0, suit: 0)
-                            .offset(x: 25, y: 0)
+                    HStack {
+                        if revealed {
+                            ForEach(Array(zip(dealerCards.indices, dealerCards)), id:\.0) { index, card in
+                                if (index == 0) {
+                                    CardView(number: card[0], suit: card[1])
+                                } else {
+                                    CardView(number: card[0], suit: card[1])
+                                        .padding(.leading, -90)
+                                }
+                            }
+                        } else {
+                            CardView(number: 0, suit: 0)
+                            CardView(number: 0, suit: 0)
+                                .padding(.leading, -90)
+                        }
                     }
                 }
                 
@@ -42,11 +55,15 @@ struct GameView: View {
                 
                 // MARK: Player hand
                 if (dealCard) {
-                    ZStack {
-                        CardView(number: playerCards[0][0], suit: playerCards[0][1])
-                            .offset(x: -25, y: 0)
-                        CardView(number: playerCards[1][0], suit: playerCards[1][1])
-                            .offset(x: 25, y: 0)
+                    HStack() {
+                        ForEach(Array(zip(playerCards.indices, playerCards)), id:\.0) { index, card in
+                            if (index == 0) {
+                                CardView(number: card[0], suit: card[1])
+                            } else {
+                                CardView(number: card[0], suit: card[1])
+                                    .padding(.leading, -90)
+                            }
+                        }
                     }
                 } else {
                     // MARK: Bet button
@@ -63,7 +80,11 @@ struct GameView: View {
                 // MARK: Player actions
                 HStack(spacing:17){
                     if (dealCard) {
-                        RoundedButton(label: "Stand")
+                        Button {
+                            
+                        } label: {
+                            RoundedButton(label: "Stand")
+                        }
                     }
                     
                     ZStack {
@@ -74,11 +95,11 @@ struct GameView: View {
                             .background(Circle()
                             .foregroundColor(Color("Transparent Black")))
                         VStack {
-                            Text("Bet: $ \(bet)")
+                            Text("$\(bet)")
                                 .foregroundColor(.white)
                             ZStack {
                                 ForEach(Array(zip(betChips.indices, betChips)), id:\.0) { index, chip in
-                                    createChipBet(chipType: chip, index: index)
+                                    createChipOffset(chipType: chip, index: index)
                                 }
                             }
                         }
@@ -86,7 +107,11 @@ struct GameView: View {
                     }
                     
                     if (dealCard) {
-                        RoundedButton(label: "Hit")
+                        Button {
+                            hit(hand: &playerCards)
+                        } label: {
+                            RoundedButton(label: "Hit")
+                        }
                     }
                 }
                 
@@ -134,7 +159,7 @@ struct GameView: View {
         return result
     }
 
-    func createChipBet(chipType: String, index: Int) -> some View {
+    func createChipOffset(chipType: String, index: Int) -> some View {
         let x, y: CGFloat
         switch index % 6 {
         case 1:
@@ -196,14 +221,37 @@ struct GameView: View {
     func deal() {
         for i in 1...4 {
             if let index = deck.indices.randomElement() {
-                deck.remove(at: index)
                 if i%2 == 1 {
                     playerCards.append(deck[index])
                 } else {
                     dealerCards.append(deck[index])
                 }
+                deck.remove(at: index)
             }
         }
+    }
+    
+    func hit(hand: inout [[Int]]) {
+        var sum: Int = 0
+        for card in hand {
+            sum += getCardValue(number: card[0])
+        }
+        if sum <= 21 && hand.count < 5 {
+            if let newCardIndex = deck.indices.randomElement() {
+                hand.append(deck[newCardIndex])
+                deck.remove(at: newCardIndex)
+            }
+        }
+    }
+    
+    func getCardValue(number: Int) -> Int {
+        let value: Int
+        if number > 10 {
+            value = 10
+        } else {
+            value = number
+        }
+        return value
     }
 }
 

@@ -84,6 +84,8 @@ struct GameView: View {
                         Button {
                             if getHandValue(hand: playerCards) >= 16 {
                                 stand(hand: playerCards)
+                                revealed = true
+                                dealerPlays()
                             }
                         } label: {
                             RoundedButton(label: "Stand")
@@ -250,8 +252,11 @@ struct GameView: View {
     }
     
     func stand(hand: [[Int]]) {
-        playerPoints = getHandValue(hand: playerCards)
-        revealed = true
+        if hand == playerCards {
+            playerPoints = getHandValue(hand: hand)
+        } else if hand == dealerCards {
+            dealerPoints = getHandValue(hand: hand)
+        }
     }
     
     func getCardValue(number: Int) -> Int {
@@ -325,6 +330,16 @@ struct GameView: View {
             }
         }
         return value
+    }
+    
+    func dealerPlays() {
+        var points = getHandValue(hand: dealerCards)
+        while points < 15 {
+            hit(hand: &dealerCards)
+            points = getHandValue(hand: dealerCards)
+        }
+        stand(hand: dealerCards)
+        bet = points
     }
 }
 

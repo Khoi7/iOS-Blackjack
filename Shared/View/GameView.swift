@@ -22,7 +22,6 @@ struct GameView: View {
     
     @State var deck = [[Int]]()
     
-    @State var decision: String = ""
     @State var revealed = false
    
     var body: some View {
@@ -81,7 +80,7 @@ struct GameView: View {
                 HStack(spacing:17){
                     if (dealCard) {
                         Button {
-                            
+                            stand(hand: playerCards)
                         } label: {
                             RoundedButton(label: "Stand")
                         }
@@ -241,6 +240,16 @@ struct GameView: View {
                 hand.append(deck[newCardIndex])
                 deck.remove(at: newCardIndex)
             }
+        }
+    }
+    
+    func stand(hand: [[Int]]) {
+        var sum: Int = 0
+        for card in hand {
+            sum += getCardValue(number: card[0])
+        }
+        if sum > 16 {
+            revealed = true
         }
     }
     

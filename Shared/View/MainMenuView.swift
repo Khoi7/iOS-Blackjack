@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    @State var colorScheme: ColorScheme = .light
-    @State var darkMode = false
+    @Environment(\.colorScheme) var colorScheme
     @State var showGameView = false
     @State var showHowToPlay = false
     @State var showHighscores = false
@@ -38,15 +37,8 @@ struct MainMenuView: View {
                     }
                     Text("Highscores")
                         .modifier(MenuChoiceText())
-                    Toggle("dark mode".capitalized, isOn: self.$darkMode)
-                        .padding(.top, 50)
-                        .toggleStyle(.button)
-                        .tint(Color("Transparent Black"))
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .bold, design: .serif))
                 }
             }
-            .preferredColorScheme(self.darkMode ? .dark : .light)
         }
     }
 }

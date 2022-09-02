@@ -43,3 +43,27 @@ struct BackButton: ViewModifier {
             .padding(.top, 20)
     }
 }
+
+struct ResultText: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 60, weight: .semibold, design: .rounded))
+            .foregroundColor(.yellow)
+            .shadow(color: .orange, radius: 1, x: 2, y: 5)
+    }
+}
+
+struct NewGameButton: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 30, weight: .semibold))
+            .foregroundColor(.yellow)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 30)
+            .background {
+                Capsule()
+                    .foregroundColor(.orange)
+                    .opacity(0.8)
+            }
+    }
+}

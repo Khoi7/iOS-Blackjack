@@ -25,6 +25,7 @@ struct GameView: View {
     @State var deck = [[Int]]()
     
     @State var revealed = false
+    @State var result = ""
    
     var body: some View {
         ZStack {
@@ -53,6 +54,19 @@ struct GameView: View {
                 }
                 
                 Spacer()
+                if result != "" {
+                    VStack {
+                        Text("\(result)".uppercased())
+                            .modifier(ResultText())
+                        Button {
+                            newRound()
+                        } label: {
+                            Text("New Game".capitalized)
+                                .modifier(NewGameButton())
+                        }
+                    }
+                }
+                Spacer()
                 
                 // MARK: Player hand
                 if (dealCard) {
@@ -73,6 +87,7 @@ struct GameView: View {
                             deck = initDeck()
                             deal()
                             dealCard = true
+                            earlyGameResult()
                         }
                     } label: {
                         RoundedButton(label: "Bet")
@@ -82,10 +97,11 @@ struct GameView: View {
                 HStack(spacing:17){
                     if (dealCard) {
                         Button {
-                            if getHandValue(hand: playerCards) >= 16 {
-                                stand(hand: playerCards)
+                            if (getHandValue(hand: playerCards) >= 16 || getHandValue(hand: playerCards) == 0) && result == "" {
+                                applyCurrentPoints(hand: playerCards)
                                 revealed = true
                                 dealerPlays()
+                                gameResult()
                             }
                         } label: {
                             RoundedButton(label: "Stand")
@@ -243,7 +259,7 @@ struct GameView: View {
         for card in hand {
             sum += getCardValue(number: card[0])
         }
-        if sum <= 21 && hand.count < 5 {
+        if sum < 21 && hand.count < 5 {
             if let newCardIndex = deck.indices.randomElement() {
                 hand.append(deck[newCardIndex])
                 deck.remove(at: newCardIndex)
@@ -251,7 +267,7 @@ struct GameView: View {
         }
     }
     
-    func stand(hand: [[Int]]) {
+    func applyCurrentPoints(hand: [[Int]]) {
         if hand == playerCards {
             playerPoints = getHandValue(hand: hand)
         } else if hand == dealerCards {
@@ -280,16 +296,25 @@ struct GameView: View {
     func sumCardWithAce(hand: [[Int]]) -> Int {
         var sum: Int = 0
         for card in hand {
-            if card[0] == 1 {
-                for value in [1,10,11] {
-                    if (sum + value > sum) && (sum + value <= 21) {
-                        sum += value
-                    }
-                }
-            } else {
+            if card[0] != 1 {
                 sum += getCardValue(number: card[0])
             }
+            print(sum)
         }
+        if hand.count < 5 {
+            for value in [11, 10, 1] {
+                if (sum + value <= 21) && value != 1 {
+                    sum += value
+                    break
+                } else if value == 1 {
+                    sum += value
+                }
+            }
+        } else if hand.count == 5 {
+            sum += 1
+        }
+        
+        print(sum)
         return sum
     }
     
@@ -298,6 +323,9 @@ struct GameView: View {
         var sum: Int = 0
         for card in hand  {
             ace = card[0] == 1 ? true : false
+            if ace == true {
+                break
+            }
         }
         if ace {
             sum = sumCardWithAce(hand: hand)
@@ -320,13 +348,19 @@ struct GameView: View {
                 value = 100
             } else {
                 value = sumCard(hand: hand)
+                if value > 21 {
+                    value = 0
+                }
             }
         } else {
             let sum = sumCard(hand: hand)
             if numbers.count == 5 {
-                value = sum <= 21 ? 98 : sum
+                value = sum <= 21 ? 98 : 0
             } else {
                 value = sum
+                if value > 21 {
+                    value = 0
+                }
             }
         }
         return value
@@ -334,12 +368,87 @@ struct GameView: View {
     
     func dealerPlays() {
         var points = getHandValue(hand: dealerCards)
-        while points < 15 {
+        while points < 15 && points != 0 {
             hit(hand: &dealerCards)
             points = getHandValue(hand: dealerCards)
         }
-        stand(hand: dealerCards)
-        bet = points
+        applyCurrentPoints(hand: dealerCards)
+    }
+    
+    func gameResult() {
+        if playerPoints == 98 && dealerPoints == 98 {
+            if sumCard(hand: playerCards) < sumCard(hand: dealerCards) {
+                result = "magical five"
+                playerWins()
+            } else if sumCard(hand: playerCards) > sumCard(hand: dealerCards) {
+                result = "you lose"
+            } else if sumCard(hand: playerCards) == sumCard(hand: dealerCards) {
+                result = "draw"
+                playerDraw()
+            }
+        } else if playerPoints > dealerPoints {
+            if playerPoints == 98 {
+                result = "magical five"
+                playerWins()
+            } else {
+                result = " you win"
+                playerWins()
+            }
+        } else if playerPoints < dealerPoints {
+            result = "you lose"
+        } else if playerPoints == dealerPoints {
+            result = "draw"
+            playerDraw()
+        }
+        print(playerPoints)
+        print(dealerPoints)
+    }
+    
+    func earlyGameResult() {
+        applyCurrentPoints(hand: playerCards)
+        applyCurrentPoints(hand: dealerCards)
+        if (playerPoints == dealerPoints && playerPoints == 100) || (playerPoints == dealerPoints && playerPoints == 99) {
+            result = "draw"
+            playerDraw()
+        } else if playerPoints > dealerPoints && playerPoints == 100 {
+            result = "double aces"
+            playerWins()
+        } else if playerPoints > dealerPoints && playerPoints == 99 {
+            result = "blackjack"
+            playerWins()
+        } else if (playerPoints < dealerPoints) && (dealerPoints == 100 || dealerPoints == 99) {
+            result = "you lose"
+        }
+        if playerPoints >= 99 || dealerPoints >= 99 {
+            revealed = true
+        }
+    }
+    
+    func playerWins() {
+        // get back what player bets
+        // plus the part that he wins
+        coins += bet*2
+    }
+    
+    func playerDraw() {
+        coins += bet
+    }
+    
+    func newRound() {
+        dealCard = false
+        betChips = []
+        
+        playerCards = []
+        dealerCards = []
+        playerPoints = 0
+        dealerPoints = 0
+        
+        bet = 0
+        
+        deck = []
+        
+        revealed = false
+        result = ""
     }
 }
 

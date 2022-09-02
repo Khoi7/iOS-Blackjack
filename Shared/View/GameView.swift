@@ -11,6 +11,8 @@ import SwiftUI
 
 struct GameView: View {
     @Binding var showGameView: Bool
+    @AppStorage("defaultHighscore") var defaultHighscore: Int = 500
+    
     @State var dealCard = false
     @State var betChips = [String]()
     
@@ -32,7 +34,6 @@ struct GameView: View {
             RadialGradient(colors: [Color("Bright Table"), Color("Dark Table")], center: .center, startRadius: 0, endRadius: 400)
                 .ignoresSafeArea()
             VStack {
-                
                 // MARK: CPU hand
                 if (dealCard) {
                     HStack {
@@ -299,7 +300,6 @@ struct GameView: View {
             if card[0] != 1 {
                 sum += getCardValue(number: card[0])
             }
-            print(sum)
         }
         if hand.count < 5 {
             for value in [11, 10, 1] {
@@ -313,8 +313,6 @@ struct GameView: View {
         } else if hand.count == 5 {
             sum += 1
         }
-        
-        print(sum)
         return sum
     }
     
@@ -400,8 +398,6 @@ struct GameView: View {
             result = "draw"
             playerDraw()
         }
-        print(playerPoints)
-        print(dealerPoints)
     }
     
     func earlyGameResult() {
@@ -428,6 +424,9 @@ struct GameView: View {
         // get back what player bets
         // plus the part that he wins
         coins += bet*2
+        if coins > defaultHighscore {
+            defaultHighscore = coins
+        }
     }
     
     func playerDraw() {

@@ -67,3 +67,11 @@ struct NewGameButton: ViewModifier {
             }
     }
 }
+
+struct HighscoreText: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 20, weight: .semibold, design: .rounded))
+            .foregroundColor(.black)
+    }
+}

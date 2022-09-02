@@ -35,10 +35,19 @@ struct MainMenuView: View {
                         Text("How To Play")
                             .modifier(MenuChoiceText())
                     }
-                    Text("Highscores")
-                        .modifier(MenuChoiceText())
+                    Button {
+                        showHighscores = true
+                    } label: {
+                        Text("Highscores")
+                            .modifier(MenuChoiceText())
+                    }
                 }
             }
+        }
+        .sheet(isPresented: $showHighscores, onDismiss: {
+            showHighscores = false
+        }) {
+            HighscoresView()
         }
     }
 }

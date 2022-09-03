@@ -75,3 +75,11 @@ struct HighscoreText: ViewModifier {
             .foregroundColor(.black)
     }
 }
+
+struct CardViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .scaledToFit()
+            .frame(width: 120, alignment: .center)
+    }
+}

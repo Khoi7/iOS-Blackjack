@@ -6,6 +6,7 @@
 //
 // <a href="https://www.flaticon.com/free-icons/poker" title="poker icons">Poker icons created by Smashicons - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/poker-cards" title="poker cards icons">Poker cards icons created by rizal2109 - Flaticon</a>
+// https://betterprogramming.pub/card-flip-animation-in-swiftui-45d8b8210a00
 
 import SwiftUI
 
@@ -21,6 +22,9 @@ struct GameView: View {
     @State var playerPoints = 0
     @State var dealerPoints = 0
     
+    @State var dealerBack: Double = 0
+    @State var dealerFront: Double = 90
+    
     @State var coins = 500
     @State var bet = 0
     
@@ -28,6 +32,8 @@ struct GameView: View {
     
     @State var revealed = false
     @State var result = ""
+    
+    let flipDuration: Double = 0.5
    
     var body: some View {
         ZStack {
@@ -40,30 +46,45 @@ struct GameView: View {
                         if revealed {
                             ForEach(Array(zip(dealerCards.indices, dealerCards)), id:\.0) { index, card in
                                 if (index == 0) {
-                                    CardView(number: card[0], suit: card[1])
+                                    CardView(number: card[0], suit: card[1], backDegree: $dealerBack, frontDegree: $dealerFront)
                                 } else {
-                                    CardView(number: card[0], suit: card[1])
+                                    CardView(number: card[0], suit: card[1], backDegree: $dealerBack, frontDegree: $dealerFront)
                                         .padding(.leading, -90)
                                 }
                             }
                         } else {
-                            CardView(number: 0, suit: 0)
-                            CardView(number: 0, suit: 0)
+                            CardView(number: 0, suit: 0, backDegree: $dealerBack, frontDegree: $dealerFront)
+                            CardView(number: 0, suit: 0, backDegree: $dealerBack, frontDegree: $dealerFront)
                                 .padding(.leading, -90)
                         }
                     }
                 }
                 
+                // MARK: Result
                 Spacer()
                 if result != "" {
                     VStack {
-                        Text("\(result)".uppercased())
-                            .modifier(ResultText())
-                        Button {
-                            newRound()
-                        } label: {
-                            Text("New Game".capitalized)
-                                .modifier(NewGameButton())
+                        if coins > 0 {
+                            Text("\(result)".uppercased())
+                                .modifier(ResultText())
+                            Button {
+                                newRound()
+                            } label: {
+                                Text("New Round".capitalized)
+                                    .modifier(NewGameButton())
+                            }
+                        } else {
+                            Text("\(result)".uppercased())
+                                .modifier(ResultText())
+                            Text("game over".uppercased())
+                                .modifier(ResultText())
+                            Button {
+                                newRound()
+                                coins = 500
+                            } label: {
+                                Text("New Game".capitalized)
+                                    .modifier(NewGameButton())
+                            }
                         }
                     }
                 }
@@ -102,6 +123,12 @@ struct GameView: View {
                                 applyCurrentPoints(hand: playerCards)
                                 revealed = true
                                 dealerPlays()
+                                withAnimation(.linear(duration: flipDuration)) {
+                                    dealerBack = -90
+                                }
+                                withAnimation(.linear(duration: flipDuration).delay(flipDuration)) {
+                                    dealerFront = 0
+                                }
                                 gameResult()
                             }
                         } label: {
@@ -434,20 +461,23 @@ struct GameView: View {
     }
     
     func newRound() {
-        dealCard = false
-        betChips = []
-        
-        playerCards = []
-        dealerCards = []
-        playerPoints = 0
-        dealerPoints = 0
-        
-        bet = 0
-        
-        deck = []
-        
-        revealed = false
-        result = ""
+            dealCard = false
+            betChips = []
+            
+            playerCards = []
+            dealerCards = []
+            playerPoints = 0
+            dealerPoints = 0
+            
+            bet = 0
+            
+            deck = []
+            
+            revealed = false
+            result = ""
+            
+            dealerBack = 0
+            dealerFront = 90
     }
 }
 

@@ -62,32 +62,34 @@ struct GameView: View {
                 
                 // MARK: Result
                 Spacer()
-                if result != "" {
-                    VStack {
-                        if coins > 0 {
-                            Text("\(result)".uppercased())
-                                .modifier(ResultText())
-                            Button {
-                                newRound()
-                            } label: {
-                                Text("New Round".capitalized)
-                                    .modifier(NewGameButton())
-                            }
-                        } else {
-                            Text("\(result)".uppercased())
-                                .modifier(ResultText())
-                            Text("game over".uppercased())
-                                .modifier(ResultText())
-                            Button {
-                                newRound()
-                                coins = 500
-                            } label: {
-                                Text("New Game".capitalized)
-                                    .modifier(NewGameButton())
-                            }
+                VStack {
+                    if coins > 0 {
+                        Text("\(String(result))".uppercased())
+                            .modifier(ResultText())
+                        Button {
+                            newRound()
+                        } label: {
+                            Text("New Round".capitalized)
+                                .modifier(NewGameButton())
+                        }
+                    } else {
+                        Text("\(result)".uppercased())
+                            .modifier(ResultText())
+                        Text("game over".uppercased())
+                            .modifier(ResultText())
+                        Button {
+                            newRound()
+                            coins = 500
+                        } label: {
+                            Text("New Game".capitalized)
+                                .modifier(NewGameButton())
                         }
                     }
                 }
+                .offset(x: revealed ? 0 : 300, y: 0)
+                .opacity(revealed ? 1 : 0)
+                .scaleEffect(revealed ? 1 : 0)
+                .animation(.easeOut(duration: 1).delay(flipDuration), value: revealed)
                 Spacer()
                 
                 // MARK: Player hand
@@ -102,40 +104,47 @@ struct GameView: View {
                             }
                         }
                     }
-                } else {
-                    // MARK: Bet button
+                }
+                // MARK: Bet button
+                Button {
+                    if bet != 0 {
+                        deck = initDeck()
+                        deal()
+                        dealCard = true
+                        earlyGameResult()
+                    }
+                } label: {
+                    RoundedButton(label: "Bet")
+                }
+                .offset(x: 0, y: dealCard ? 100 : 0)
+                .opacity(dealCard ? 0 : 1)
+                .animation(.easeIn(duration: 1), value: dealCard)
+                .disabled(dealCard)
+                
+                HStack(spacing:17){
+                    // MARK: Stand
                     Button {
-                        if bet != 0 {
-                            deck = initDeck()
-                            deal()
-                            dealCard = true
-                            earlyGameResult()
+                        if (getHandValue(hand: playerCards) >= 16 || getHandValue(hand: playerCards) == 0) && result == "" {
+                            applyCurrentPoints(hand: playerCards)
+                            revealed = true
+                            dealerPlays()
+                            withAnimation(.linear(duration: flipDuration)) {
+                                dealerBack = -90
+                            }
+                            withAnimation(.linear(duration: flipDuration).delay(flipDuration)) {
+                                dealerFront = 0
+                            }
+                            gameResult()
                         }
                     } label: {
-                        RoundedButton(label: "Bet")
+                        RoundedButton(label: "Stand")
                     }
-                }
-                // MARK: Player actions
-                HStack(spacing:17){
-                    if (dealCard) {
-                        Button {
-                            if (getHandValue(hand: playerCards) >= 16 || getHandValue(hand: playerCards) == 0) && result == "" {
-                                applyCurrentPoints(hand: playerCards)
-                                revealed = true
-                                dealerPlays()
-                                withAnimation(.linear(duration: flipDuration)) {
-                                    dealerBack = -90
-                                }
-                                withAnimation(.linear(duration: flipDuration).delay(flipDuration)) {
-                                    dealerFront = 0
-                                }
-                                gameResult()
-                            }
-                        } label: {
-                            RoundedButton(label: "Stand")
-                        }
-                    }
+                    .offset(x: dealCard ? 0 : -100, y: 0)
+                    .opacity(dealCard ? 1 : 0)
+                    .animation(.easeIn(duration: 1), value: dealCard)
+                    .disabled(!dealCard)
                     
+                    // MARK: Bet area
                     ZStack {
                         Circle()
                             .stroke(lineWidth: 3)
@@ -155,15 +164,18 @@ struct GameView: View {
                         .frame(height: 110, alignment: .top)
                     }
                     
-                    if (dealCard) {
-                        Button {
-                            if !revealed {
-                                hit(hand: &playerCards)
-                            }
-                        } label: {
-                            RoundedButton(label: "Hit")
+                    // MARK: Hit
+                    Button {
+                        if !revealed {
+                            hit(hand: &playerCards)
                         }
+                    } label: {
+                        RoundedButton(label: "Hit")
                     }
+                    .offset(x: dealCard ? 0 : 100, y: 0)
+                    .opacity(dealCard ? 1 : 0)
+                    .animation(.easeIn(duration: 1), value: dealCard)
+                    .disabled(!dealCard)
                 }
                 
                 // MARK: Bet chip choices
@@ -182,6 +194,7 @@ struct GameView: View {
                 }
                 .padding(.top, 30)
                 
+                // MARK: Player's coins
                 Capsule(style: .continuous)
                     .frame(width:200, height: 40, alignment: .center)
                     .foregroundColor(Color("Transparent Black"))

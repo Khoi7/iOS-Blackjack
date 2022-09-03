@@ -12,6 +12,7 @@ import SwiftUI
 
 struct GameView: View {
     @Binding var showGameView: Bool
+    @Binding var difficulty: Int
     @AppStorage("defaultHighscore") var defaultHighscore: Int = 500
     
     @State var dealCard = false
@@ -404,11 +405,28 @@ struct GameView: View {
         return value
     }
     
+    // MARK: Logic for difficulties
     func dealerPlays() {
         var points = getHandValue(hand: dealerCards)
-        while points < 15 && points != 0 {
-            hit(hand: &dealerCards)
-            points = getHandValue(hand: dealerCards)
+        if difficulty == 1 {
+            while points < 15 && points != 0 {
+                hit(hand: &dealerCards)
+                points = getHandValue(hand: dealerCards)
+            }
+        } else if difficulty == 2 {
+            let minimumPoints: Int
+            switch playerCards.count {
+            case 5:
+                minimumPoints = 15
+            case 2:
+                minimumPoints = 19
+            default:
+                minimumPoints = 18
+            }
+            while !(points >= minimumPoints) && points != 0 {
+                hit(hand: &dealerCards)
+                points = getHandValue(hand: dealerCards)
+            }
         }
         applyCurrentPoints(hand: dealerCards)
     }
@@ -503,7 +521,7 @@ struct GameView: View {
 // MARK: Preview
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(showGameView: .constant(true))
+        GameView(showGameView: .constant(true), difficulty: .constant(2))
         MainMenuView()
     }
 }

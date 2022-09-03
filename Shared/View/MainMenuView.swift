@@ -12,6 +12,7 @@ struct MainMenuView: View {
     @State var showGameView = false
     @State var showHowToPlay = false
     @State var showHighscores = false
+    @State var difficulty = 1
     
     var body: some View {
         NavigationView {
@@ -25,7 +26,7 @@ struct MainMenuView: View {
                         .multilineTextAlignment(.center)
                         .shadow(color: .black, radius: 10, x: 5, y: 5)
                         .padding(.bottom, 30)
-                    NavigationLink(destination: GameView(showGameView: self.$showGameView)
+                    NavigationLink(destination: GameView(showGameView: self.$showGameView, difficulty: self.$difficulty)
                                     .navigationBarHidden(true), isActive: $showGameView) {
                         Text("New Game")
                             .modifier(MenuChoiceText())
@@ -41,6 +42,13 @@ struct MainMenuView: View {
                         Text("Highscores")
                             .modifier(MenuChoiceText())
                     }
+                    
+                    Picker("Difficulty", selection: $difficulty) {
+                        Text("Easy").tag(1)
+                        Text("Medium").tag(2)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal, 60)
                 }
             }
         }

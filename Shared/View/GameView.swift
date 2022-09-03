@@ -444,6 +444,12 @@ struct GameView: View {
         }
         if playerPoints >= 99 || dealerPoints >= 99 {
             revealed = true
+            withAnimation(.linear(duration: flipDuration)) {
+                dealerBack = -90
+            }
+            withAnimation(.linear(duration: flipDuration).delay(flipDuration)) {
+                dealerFront = 0
+            }
         }
     }
     

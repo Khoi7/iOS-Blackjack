@@ -14,7 +14,9 @@ import SwiftUI
 struct GameView: View {
     @Binding var showGameView: Bool
     @Binding var difficulty: Int
-    @AppStorage("defaultHighscore") var defaultHighscore: Int = 500
+    
+    @AppStorage("highscores") var highscores = ""
+    @AppStorage("username") var username = "Default Player"
     
     @State var dealCard = false
     @State var betChips = [String]()
@@ -486,12 +488,42 @@ struct GameView: View {
     }
     
     func playerWins() {
+        var highscoresDict = loadHighscore()
+        
         // get back what player bets
         // plus the part that he wins
         coins += bet*2
-        if coins > defaultHighscore {
-            defaultHighscore = coins
+
+        // MARK: Update highscore
+        if coins > 500 {
+            if highscoresDict.count > 10 {
+                // user already in highscore table
+                if highscoresDict[username] != nil {
+                    if coins > highscoresDict[username]! {
+                        highscoresDict.updateValue(coins, forKey: username)
+                    }
+                } else {
+                    // highscore table does not have this user yet
+                    let temp = highscoresDict.min { first, second in
+                        return first.value < second.value
+                    }
+                    if temp!.1 < coins {
+                        highscoresDict.removeValue(forKey: temp!.0)!
+                        highscoresDict[username] = coins
+                    }
+                }
+            // highscore table have less than 10
+            } else {
+                if highscoresDict[username] != nil {
+                    if coins > highscoresDict[username]! {
+                        highscoresDict.updateValue(coins, forKey: username)
+                    }
+                } else {
+                    highscoresDict.updateValue(coins, forKey: username)
+                }
+            }
         }
+        saveHighscore(highscoresDict: highscoresDict)
     }
     
     func playerDraw() {
@@ -516,6 +548,27 @@ struct GameView: View {
             
             dealerBack = 0
             dealerFront = 90
+    }
+    
+    func saveHighscore(highscoresDict: [String:Int]) {
+        do {
+            let data = try JSONEncoder().encode(highscoresDict)
+            highscores = String(data: data, encoding: .utf8)!
+        } catch let error {
+            fatalError("Failed to encode: \(error)")
+        }
+    }
+    
+    func loadHighscore() -> [String:Int] {
+        if !highscores.isEmpty {
+            do {
+                let result = try JSONDecoder().decode([String:Int].self, from: Data(highscores.utf8))
+                return result
+            } catch let error {
+                print("Failed to decode: \(error)")
+            }
+        }
+        return [:]
     }
 }
 

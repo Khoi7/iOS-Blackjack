@@ -8,27 +8,57 @@
 import SwiftUI
 
 struct HighscoresView: View {
-    @AppStorage("defaultHighscore") var defaultHighscore: Int = 500
+    @AppStorage("highscores") var highscores = ""
+    var highscoresDict: [String:Int] {
+        loadHighscore()
+    }
     
     var body: some View {
         ZStack {
             RadialGradient(colors: [Color("Bright Table"), Color("Dark Table")], center: .center, startRadius: 0, endRadius: 400)
                 .ignoresSafeArea()
-            VStack {
-                Text("highscores".uppercased())
-                    .modifier(HighscoreText())
-                    .padding(.bottom, 30)
-                HStack {
-                    Text("Default player")
+            ScrollView{
+                VStack {
+                    Text("highscores".uppercased())
                         .modifier(HighscoreText())
-                    Spacer()
-                    Text("\(defaultHighscore)")
-                        .modifier(HighscoreText())
-                        
+                        .padding(.bottom, 30)
+                    ForEach(sortDictDecreasing(dict: highscoresDict), id: \.key) { key, value in
+                        HStack {
+                            Text("\(key)")
+                                .modifier(HighscoreText())
+                            Spacer()
+                            Text("\(value)")
+                                .modifier(HighscoreText())
+                        }
+                        .padding(.vertical)
+                    }
+                    
                 }
+                .padding(.horizontal, 25)
+                .padding(.vertical, 70)
             }
-            .padding(.horizontal, 25)
         }
+    }
+    
+    func loadHighscore() -> [String:Int] {
+        if !highscores.isEmpty {
+            do {
+                let result = try JSONDecoder().decode([String:Int].self, from: Data(highscores.utf8))
+                print(result)
+                print(highscores)
+                return result
+            } catch let error {
+                print("Failed to decode: \(error)")
+            }
+        }
+        return [:]
+    }
+    
+    func sortDictDecreasing(dict: [String:Int]) -> Array<(key: String, value: Int)> {
+        let sortedArrayOfTuples = dict.sorted { first, second in
+            return first.value > second.value
+        }
+        return sortedArrayOfTuples
     }
 }
 

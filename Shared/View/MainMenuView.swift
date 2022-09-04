@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainMenuView: View {
     @Environment(\.colorScheme) var colorScheme
+    @AppStorage("username") var username = "Default Player"
     @State var showGameView = false
     @State var showHowToPlay = false
     @State var showHighscores = false
@@ -42,6 +43,11 @@ struct MainMenuView: View {
                         Text("Highscores")
                             .modifier(MenuChoiceText())
                     }
+                    TextField("Username", text: $username)
+                        .padding(.horizontal, 70)
+                        .padding(.vertical, 30)
+                        .multilineTextAlignment(.center)
+                        .textFieldStyle(.roundedBorder)
                     
                     Picker("Difficulty", selection: $difficulty) {
                         Text("Easy").tag(1)
@@ -52,6 +58,7 @@ struct MainMenuView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
         .sheet(isPresented: $showHighscores, onDismiss: {
             showHighscores = false
         }) {

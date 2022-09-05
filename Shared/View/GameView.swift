@@ -48,7 +48,7 @@ struct GameView: View {
     
     
     
-    let flipDuration: Double = 0.5
+    let flipDuration: Double = 0.4
    
     var body: some View {
         ZStack {
@@ -220,6 +220,9 @@ struct GameView: View {
                     }
             }
         }
+        .onAppear(perform: {
+            backgroundAudioPlayer?.stop()
+        })
         // MARK: Back button
         .overlay(alignment: .topLeading) {
             Button(){
@@ -446,6 +449,7 @@ struct GameView: View {
     }
     
     func gameResult() {
+        playSoundEffect(sound: "", type: "mp3")
         if playerPoints == 98 && dealerPoints == 98 {
             if sumCard(hand: playerCards) < sumCard(hand: dealerCards) {
                 result = "magical five"
@@ -489,6 +493,7 @@ struct GameView: View {
         }
         if playerPoints >= 99 || dealerPoints >= 99 {
             revealed = true
+            playSoundEffect(sound: "Card flip", type: "mp3")
             withAnimation(.linear(duration: flipDuration)) {
                 dealerBack = -90
             }

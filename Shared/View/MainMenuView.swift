@@ -70,6 +70,9 @@ struct MainMenuView: View {
                     .padding(.horizontal, 60)
                 }
             }
+            .onAppear(perform: {
+                playSoundBackground(sound: "Arcade music", type: "mp3")
+            })
         }
         #if os(iOS)
         .navigationViewStyle(.stack)

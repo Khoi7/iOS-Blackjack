@@ -27,6 +27,8 @@ struct MainMenuView: View {
                         .multilineTextAlignment(.center)
                         .shadow(color: .black, radius: 10, x: 5, y: 5)
                         .padding(.bottom, 30)
+                    
+                    #if os(iOS)
                     NavigationLink(destination: GameView(showGameView: self.$showGameView, difficulty: self.$difficulty)
                                     .navigationBarHidden(true), isActive: $showGameView) {
                         Text("New Game")
@@ -37,6 +39,17 @@ struct MainMenuView: View {
                         Text("How To Play")
                             .modifier(MenuChoiceText())
                     }
+                    #elseif os(macOS)
+                    NavigationLink(destination: GameView(showGameView: self.$showGameView, difficulty: self.$difficulty), isActive: $showGameView) {
+                        Text("New Game")
+                            .modifier(MenuChoiceText())
+                    }
+                    NavigationLink(destination: HowToPlayView(), isActive: self.$showHowToPlay) {
+                        Text("How To Play")
+                            .modifier(MenuChoiceText())
+                    }
+                    #endif
+                    
                     Button {
                         showHighscores = true
                     } label: {
@@ -58,7 +71,9 @@ struct MainMenuView: View {
                 }
             }
         }
+        #if os(iOS)
         .navigationViewStyle(.stack)
+        #endif
         .sheet(isPresented: $showHighscores, onDismiss: {
             showHighscores = false
         }) {

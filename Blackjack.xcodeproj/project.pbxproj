@@ -21,6 +21,15 @@
 		13F5DFCB28B7B16300DE87E7 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFCA28B7B16300DE87E7 /* MainMenuView.swift */; };
 		884BDB1E28BE1A1600C18DD9 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884BDB1D28BE1A1600C18DD9 /* RoundedButton.swift */; };
 		8877C36928C513F000FA51A7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8877C36828C513F000FA51A7 /* Utils.swift */; };
+		8877C37428C67AC900FA51A7 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFCA28B7B16300DE87E7 /* MainMenuView.swift */; };
+		8877C37528C67ACB00FA51A7 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6428B8FD2700318493 /* GameView.swift */; };
+		8877C37628C67ACE00FA51A7 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6628B8FE1000318493 /* HowToPlayView.swift */; };
+		8877C37728C67AD000FA51A7 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138C9D2428BB61910086E68F /* CardView.swift */; };
+		8877C37828C67AD400FA51A7 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1365F94F28BCF1500052A0CC /* ChipView.swift */; };
+		8877C37928C67AD700FA51A7 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884BDB1D28BE1A1600C18DD9 /* RoundedButton.swift */; };
+		8877C37A28C67ADA00FA51A7 /* HighscoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F88DA928C2ACF000C6B830 /* HighscoresView.swift */; };
+		8877C37B28C67AE300FA51A7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8877C36828C513F000FA51A7 /* Utils.swift */; };
+		8877C37C28C67AE600FA51A7 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFC828B7AD9100DE87E7 /* Modifiers.swift */; };
 		88F88DAA28C2ACF000C6B830 /* HighscoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F88DA928C2ACF000C6B830 /* HighscoresView.swift */; };
 /* End PBXBuildFile section */
 
@@ -237,7 +246,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8877C37428C67AC900FA51A7 /* MainMenuView.swift in Sources */,
+				8877C37C28C67AE600FA51A7 /* Modifiers.swift in Sources */,
+				8877C37628C67ACE00FA51A7 /* HowToPlayView.swift in Sources */,
 				13F5DFBB28B79DC900DE87E7 /* ContentView.swift in Sources */,
+				8877C37928C67AD700FA51A7 /* RoundedButton.swift in Sources */,
+				8877C37528C67ACB00FA51A7 /* GameView.swift in Sources */,
+				8877C37B28C67AE300FA51A7 /* Utils.swift in Sources */,
+				8877C37828C67AD400FA51A7 /* ChipView.swift in Sources */,
+				8877C37728C67AD000FA51A7 /* CardView.swift in Sources */,
+				8877C37A28C67ADA00FA51A7 /* HighscoresView.swift in Sources */,
 				13F5DFB928B79DC900DE87E7 /* BlackjackApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

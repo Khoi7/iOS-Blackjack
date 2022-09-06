@@ -71,7 +71,7 @@ struct MainMenuView: View {
                 }
             }
             .onAppear(perform: {
-                playSoundBackground(sound: "Arcade music", type: "mp3")
+                playSoundBackground(sound: "Breakbeat-downtempo-electronic-loop", type: "mp3")
             })
         }
         #if os(iOS)
@@ -79,6 +79,7 @@ struct MainMenuView: View {
         #endif
         .sheet(isPresented: $showHighscores, onDismiss: {
             showHighscores = false
+            playSoundBackground(sound: "Breakbeat-downtempo-electronic-loop", type: "mp3")
         }) {
             HighscoresView()
         }

@@ -12,18 +12,14 @@ var backgroundAudioPlayer: AVAudioPlayer?
 var audioPlayer: AVAudioPlayer?
 
 func playSoundEffect(sound: String, type: String) {
-  if let path = Bundle.main.path(forResource: sound, ofType: type) {
-    do {
-        if audioPlayer != nil {
-            while audioPlayer!.isPlaying {
-            }
+    if let path = Bundle.main.path(forResource: sound, ofType: type) {
+        do {
+                audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+                audioPlayer?.play()
+        } catch {
+            print("ERROR: Could not find and play the sound file!")
         }
-        audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
-        audioPlayer?.play()
-    } catch {
-        print("ERROR: Could not find and play the sound file!")
     }
-  }
 }
 
 func playSoundBackground(sound: String, type: String) {
@@ -31,9 +27,14 @@ func playSoundBackground(sound: String, type: String) {
       do {
           backgroundAudioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
           backgroundAudioPlayer?.numberOfLoops = -1
+          backgroundAudioPlayer?.volume = 0.5
           backgroundAudioPlayer?.play()
       } catch {
           print("ERROR: Could not find and play the sound file!")
       }
     }
+}
+
+func stopSoundBackground() {
+    backgroundAudioPlayer?.stop()
 }

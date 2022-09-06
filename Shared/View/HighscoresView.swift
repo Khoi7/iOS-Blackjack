@@ -38,6 +38,9 @@ struct HighscoresView: View {
                 .padding(.vertical, 70)
             }
         }
+        .onAppear(perform: {
+            playSoundBackground(sound: "Bossa-nova-beat-music-loop", type: "mp3")
+        })
     }
     
     func loadHighscore() -> [String:Int] {

@@ -38,6 +38,9 @@ struct HowToPlayView: View {
                 .padding(.horizontal, 15)
             }
         }
+        .onAppear(perform: {
+            playSoundBackground(sound: "Waltz-music-loop", type: "mp3")
+        })
     }
 }
 

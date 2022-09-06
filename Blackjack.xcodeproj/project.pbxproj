@@ -11,6 +11,24 @@
 		137BFF6528B8FD2700318493 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6428B8FD2700318493 /* GameView.swift */; };
 		137BFF6728B8FE1000318493 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6628B8FE1000318493 /* HowToPlayView.swift */; };
 		138C9D2528BB61910086E68F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138C9D2428BB61910086E68F /* CardView.swift */; };
+		13F15CD628C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CD528C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 */; };
+		13F15CD728C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CD528C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 */; };
+		13F15CD928C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CD828C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 */; };
+		13F15CDA28C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CD828C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 */; };
+		13F15CDC28C74DFE00ABF22B /* Waltz-music-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CDB28C74DFE00ABF22B /* Waltz-music-loop.mp3 */; };
+		13F15CDD28C74DFE00ABF22B /* Waltz-music-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CDB28C74DFE00ABF22B /* Waltz-music-loop.mp3 */; };
+		13F15CDF28C74F5800ABF22B /* coins.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CDE28C74F5800ABF22B /* coins.wav */; };
+		13F15CE028C74F5800ABF22B /* coins.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CDE28C74F5800ABF22B /* coins.wav */; };
+		13F15CE228C750AA00ABF22B /* Game-over-loser.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CE128C750AA00ABF22B /* Game-over-loser.mp3 */; };
+		13F15CE328C750AA00ABF22B /* Game-over-loser.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CE128C750AA00ABF22B /* Game-over-loser.mp3 */; };
+		13F15CE528C754C600ABF22B /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CE428C754C600ABF22B /* lose.wav */; };
+		13F15CE628C754C600ABF22B /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CE428C754C600ABF22B /* lose.wav */; };
+		13F15CE828C758A400ABF22B /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CE728C758A400ABF22B /* win.wav */; };
+		13F15CE928C758A400ABF22B /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CE728C758A400ABF22B /* win.wav */; };
+		13F15CEB28C7604E00ABF22B /* draw.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CEA28C7604E00ABF22B /* draw.mp3 */; };
+		13F15CEC28C7604E00ABF22B /* draw.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CEA28C7604E00ABF22B /* draw.mp3 */; };
+		13F15CEE28C762BB00ABF22B /* cartoon-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CED28C762BB00ABF22B /* cartoon-loop.mp3 */; };
+		13F15CEF28C762BB00ABF22B /* cartoon-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CED28C762BB00ABF22B /* cartoon-loop.mp3 */; };
 		13F5DFB828B79DC900DE87E7 /* BlackjackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFA828B79DC700DE87E7 /* BlackjackApp.swift */; };
 		13F5DFB928B79DC900DE87E7 /* BlackjackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFA828B79DC700DE87E7 /* BlackjackApp.swift */; };
 		13F5DFBA28B79DC900DE87E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5DFA928B79DC700DE87E7 /* ContentView.swift */; };
@@ -42,6 +60,15 @@
 		137BFF6428B8FD2700318493 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		137BFF6628B8FE1000318493 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		138C9D2428BB61910086E68F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		13F15CD528C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Breakbeat-downtempo-electronic-loop.mp3"; sourceTree = "<group>"; };
+		13F15CD828C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Bossa-nova-beat-music-loop.mp3"; sourceTree = "<group>"; };
+		13F15CDB28C74DFE00ABF22B /* Waltz-music-loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Waltz-music-loop.mp3"; sourceTree = "<group>"; };
+		13F15CDE28C74F5800ABF22B /* coins.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coins.wav; sourceTree = "<group>"; };
+		13F15CE128C750AA00ABF22B /* Game-over-loser.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Game-over-loser.mp3"; sourceTree = "<group>"; };
+		13F15CE428C754C600ABF22B /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		13F15CE728C758A400ABF22B /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
+		13F15CEA28C7604E00ABF22B /* draw.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = draw.mp3; sourceTree = "<group>"; };
+		13F15CED28C762BB00ABF22B /* cartoon-loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "cartoon-loop.mp3"; sourceTree = "<group>"; };
 		13F5DFA828B79DC700DE87E7 /* BlackjackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackjackApp.swift; sourceTree = "<group>"; };
 		13F5DFA928B79DC700DE87E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		13F5DFAA28B79DC900DE87E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +168,15 @@
 			isa = PBXGroup;
 			children = (
 				8877C38128C682BF00FA51A7 /* Card flip.mp3 */,
+				13F15CD528C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 */,
+				13F15CD828C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 */,
+				13F15CDE28C74F5800ABF22B /* coins.wav */,
+				13F15CEA28C7604E00ABF22B /* draw.mp3 */,
+				13F15CDB28C74DFE00ABF22B /* Waltz-music-loop.mp3 */,
+				13F15CED28C762BB00ABF22B /* cartoon-loop.mp3 */,
+				13F15CE728C758A400ABF22B /* win.wav */,
+				13F15CE428C754C600ABF22B /* lose.wav */,
+				13F15CE128C750AA00ABF22B /* Game-over-loser.mp3 */,
 				8877C38728C6896A00FA51A7 /* Arcade music.mp3 */,
 			);
 			path = Sounds;
@@ -225,9 +261,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13F15CDF28C74F5800ABF22B /* coins.wav in Resources */,
+				13F15CD628C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 in Resources */,
 				8877C38228C682BF00FA51A7 /* Card flip.mp3 in Resources */,
+				13F15CEB28C7604E00ABF22B /* draw.mp3 in Resources */,
+				13F15CE828C758A400ABF22B /* win.wav in Resources */,
 				13F5DFBC28B79DC900DE87E7 /* Assets.xcassets in Resources */,
+				13F15CD928C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 in Resources */,
+				13F15CEE28C762BB00ABF22B /* cartoon-loop.mp3 in Resources */,
 				8877C38828C6896A00FA51A7 /* Arcade music.mp3 in Resources */,
+				13F15CE528C754C600ABF22B /* lose.wav in Resources */,
+				13F15CE228C750AA00ABF22B /* Game-over-loser.mp3 in Resources */,
+				13F15CDC28C74DFE00ABF22B /* Waltz-music-loop.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,9 +280,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13F15CE028C74F5800ABF22B /* coins.wav in Resources */,
+				13F15CD728C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 in Resources */,
 				8877C38328C682BF00FA51A7 /* Card flip.mp3 in Resources */,
+				13F15CEC28C7604E00ABF22B /* draw.mp3 in Resources */,
+				13F15CE928C758A400ABF22B /* win.wav in Resources */,
 				13F5DFBD28B79DC900DE87E7 /* Assets.xcassets in Resources */,
+				13F15CDA28C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 in Resources */,
+				13F15CEF28C762BB00ABF22B /* cartoon-loop.mp3 in Resources */,
 				8877C38928C6896A00FA51A7 /* Arcade music.mp3 in Resources */,
+				13F15CE628C754C600ABF22B /* lose.wav in Resources */,
+				13F15CE328C750AA00ABF22B /* Game-over-loser.mp3 in Resources */,
+				13F15CDD28C74DFE00ABF22B /* Waltz-music-loop.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

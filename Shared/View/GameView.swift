@@ -78,20 +78,32 @@ struct GameView: View {
                 // MARK: Result
                 Spacer()
                 VStack {
-                    if coins > 0 {
+                    if revealed && coins > 0 {
                         Text("\(String(result))".uppercased())
                             .modifier(ResultText())
+                            .onAppear(perform: {
+                                if result == "you lose" {
+                                    playSoundEffect(sound: "lose", type: "wav")
+                                } else if result != "draw" {
+                                    playSoundEffect(sound: "win", type: "wav")
+                                } else if result == "draw" {
+                                    playSoundEffect(sound: "draw", type: "mp3")
+                                }
+                            })
                         Button {
                             newRound()
                         } label: {
                             Text("New Round".capitalized)
                                 .modifier(NewGameButton())
                         }
-                    } else {
+                    } else if revealed && coins <= 0{
                         Text("\(result)".uppercased())
                             .modifier(ResultText())
                         Text("game over".uppercased())
                             .modifier(ResultText())
+                            .onAppear(perform: {
+                                playSoundEffect(sound: "Game-over-loser", type: "mp3")
+                            })
                         Button {
                             newRound()
                             coins = 500
@@ -118,6 +130,10 @@ struct GameView: View {
                                     .padding(.leading, -90)
                             }
                         }
+                        .offset(x: 0, y: 60)
+                        .onAppear(perform: {
+                            playSoundEffect(sound: "Card flip", type: "mp3")
+                        })
                     }
                 }
                 // MARK: Bet button
@@ -221,7 +237,7 @@ struct GameView: View {
             }
         }
         .onAppear(perform: {
-            backgroundAudioPlayer?.stop()
+            playSoundBackground(sound: "cartoon-loop", type: "mp3")
         })
         // MARK: Back button
         .overlay(alignment: .topLeading) {
@@ -275,6 +291,7 @@ struct GameView: View {
                 self.betChips.append(chip)
                 self.bet += chipValue
                 self.coins -= chipValue
+                playSoundEffect(sound: "coins", type: "wav")
             }
         }
     }
@@ -322,6 +339,7 @@ struct GameView: View {
             if let newCardIndex = deck.indices.randomElement() {
                 hand.append(deck[newCardIndex])
                 deck.remove(at: newCardIndex)
+                playSoundEffect(sound: "Card flip", type: "mp3")
             }
         }
     }
@@ -449,7 +467,6 @@ struct GameView: View {
     }
     
     func gameResult() {
-        playSoundEffect(sound: "", type: "mp3")
         if playerPoints == 98 && dealerPoints == 98 {
             if sumCard(hand: playerCards) < sumCard(hand: dealerCards) {
                 result = "magical five"
@@ -493,7 +510,6 @@ struct GameView: View {
         }
         if playerPoints >= 99 || dealerPoints >= 99 {
             revealed = true
-            playSoundEffect(sound: "Card flip", type: "mp3")
             withAnimation(.linear(duration: flipDuration)) {
                 dealerBack = -90
             }

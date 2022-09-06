@@ -16,6 +16,7 @@
 <a href="https://www.flaticon.com/free-icons/blackjack" title="blackjack icons">Blackjack icons created by Good Ware - Flaticon</a>
  
  https://betterprogramming.pub/card-flip-animation-in-swiftui-45d8b8210a00
+ https://betterprogramming.pub/stack-navigation-on-macos-41a40d8ec3a4
 */
 
 import SwiftUI

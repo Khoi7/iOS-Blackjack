@@ -96,6 +96,9 @@ struct GameView: View {
                             Text("New Round".capitalized)
                                 .modifier(NewGameButton())
                         }
+                        #if os(macOS)
+                            .buttonStyle(.plain)
+                        #endif
                     } else if revealed && coins <= 0{
                         Text("\(result)".uppercased())
                             .modifier(ResultText())
@@ -111,6 +114,9 @@ struct GameView: View {
                             Text("New Game".capitalized)
                                 .modifier(NewGameButton())
                         }
+                        #if os(macOS)
+                            .buttonStyle(.plain)
+                        #endif
                     }
                 }
                 .offset(x: revealed ? 0 : 300, y: 0)
@@ -130,7 +136,11 @@ struct GameView: View {
                                     .padding(.leading, -90)
                             }
                         }
+                        #if os(iOS)
                         .offset(x: 0, y: 60)
+                        #elseif os(macOS)
+                        .offset(x: 0, y: 20)
+                        #endif
                         .onAppear(perform: {
                             playSoundEffect(sound: "Card flip", type: "mp3")
                         })
@@ -151,6 +161,9 @@ struct GameView: View {
                 .opacity(dealCard ? 0 : 1)
                 .animation(.easeIn(duration: 1), value: dealCard)
                 .disabled(dealCard)
+                #if os(macOS)
+                .buttonStyle(.plain)
+                #endif
                 
                 HStack(spacing:17){
                     // MARK: Stand
@@ -174,13 +187,21 @@ struct GameView: View {
                     .opacity(dealCard ? 1 : 0)
                     .animation(.easeIn(duration: 1), value: dealCard)
                     .disabled(!dealCard)
+                    #if os(macOS)
+                    .buttonStyle(.plain)
+                    #endif
                     
                     // MARK: Bet area
                     ZStack {
                         Circle()
+                        #if os(iOS)
                             .stroke(lineWidth: 3)
-                            .foregroundColor(.yellow)
                             .frame(width:140, height: 150)
+                        #elseif os(macOS)
+                            .stroke(lineWidth: 1)
+                            .frame(width:70, height: 75)
+                        #endif
+                            .foregroundColor(.yellow)
                             .background(Circle()
                             .foregroundColor(Color("Transparent Black")))
                         VStack {
@@ -192,7 +213,11 @@ struct GameView: View {
                                 }
                             }
                         }
+                        #if os(iOS)
                         .frame(height: 110, alignment: .top)
+                        #elseif os(macOS)
+                        .frame(height: 55, alignment: .top)
+                        #endif
                     }
                     
                     // MARK: Hit
@@ -207,6 +232,9 @@ struct GameView: View {
                     .opacity(dealCard ? 1 : 0)
                     .animation(.easeIn(duration: 1), value: dealCard)
                     .disabled(!dealCard)
+                    #if os(macOS)
+                    .buttonStyle(.plain)
+                    #endif
                 }
                 
                 // MARK: Bet chip choices
@@ -221,9 +249,16 @@ struct GameView: View {
                         } label: {
                             ChipView(chipType: chip)
                         }
+                        #if os(macOS)
+                        .buttonStyle(.plain)
+                        #endif
                     }
                 }
+                #if os(iOS)
                 .padding(.top, 30)
+                #elseif os(macOS)
+                .padding(.top, 10)
+                #endif
                 
                 // MARK: Player's coins
                 Capsule(style: .continuous)
@@ -248,6 +283,9 @@ struct GameView: View {
                     .resizable()
                     .modifier(BackButton())
             }
+            #if os(macOS)
+            .buttonStyle(.plain)
+            #endif
         }
     }
 

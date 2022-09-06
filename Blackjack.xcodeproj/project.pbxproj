@@ -11,6 +11,7 @@
 		137BFF6528B8FD2700318493 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6428B8FD2700318493 /* GameView.swift */; };
 		137BFF6728B8FE1000318493 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137BFF6628B8FE1000318493 /* HowToPlayView.swift */; };
 		138C9D2528BB61910086E68F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138C9D2428BB61910086E68F /* CardView.swift */; };
+		13D6AB6A28C76B4B00E93453 /* StackNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D6AB6928C76B4B00E93453 /* StackNavigationView.swift */; };
 		13F15CD628C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CD528C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 */; };
 		13F15CD728C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CD528C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 */; };
 		13F15CD928C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13F15CD828C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 */; };
@@ -60,6 +61,7 @@
 		137BFF6428B8FD2700318493 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		137BFF6628B8FE1000318493 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		138C9D2428BB61910086E68F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		13D6AB6928C76B4B00E93453 /* StackNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackNavigationView.swift; sourceTree = "<group>"; };
 		13F15CD528C74A4000ABF22B /* Breakbeat-downtempo-electronic-loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Breakbeat-downtempo-electronic-loop.mp3"; sourceTree = "<group>"; };
 		13F15CD828C74AD200ABF22B /* Bossa-nova-beat-music-loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Bossa-nova-beat-music-loop.mp3"; sourceTree = "<group>"; };
 		13F15CDB28C74DFE00ABF22B /* Waltz-music-loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Waltz-music-loop.mp3"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				1365F94F28BCF1500052A0CC /* ChipView.swift */,
 				884BDB1D28BE1A1600C18DD9 /* RoundedButton.swift */,
 				88F88DA928C2ACF000C6B830 /* HighscoresView.swift */,
+				13D6AB6928C76B4B00E93453 /* StackNavigationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				8877C37628C67ACE00FA51A7 /* HowToPlayView.swift in Sources */,
 				13F5DFBB28B79DC900DE87E7 /* ContentView.swift in Sources */,
 				8877C37928C67AD700FA51A7 /* RoundedButton.swift in Sources */,
+				13D6AB6A28C76B4B00E93453 /* StackNavigationView.swift in Sources */,
 				8877C37528C67ACB00FA51A7 /* GameView.swift in Sources */,
 				8877C37B28C67AE300FA51A7 /* Utils.swift in Sources */,
 				8877C37828C67AD400FA51A7 /* ChipView.swift in Sources */,

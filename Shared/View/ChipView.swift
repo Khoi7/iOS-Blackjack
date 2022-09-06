@@ -13,9 +13,14 @@ struct ChipView: View {
         Image(chipType)
             .resizable()
             .scaledToFit()
+        #if os(iOS)
             .frame(height: 60)
             .padding(.trailing, 5)
             .padding(.leading, 5)
+        #elseif os(macOS)
+            .frame(height: 30)
+        #endif
+            
     }
 }
 
